@@ -1,10 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 """
-// File: send_hearbeat.py
+// File: send_heartbeat.py
 //
-// Usage: send_pi_cpu_temp host user password [guid]
+// Usage: send_heartbeat.py host user password [guid]
 //
-// Described here https://github.com/grodansparadis/vscp-samples/tree/master/samples/python
+// Described here https://github.com/grodansparadis/vscp-python-send-heartbeat
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License
@@ -26,7 +26,6 @@
 // the Free Software Foundation, 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 //
-// cat /sys/class/thermal/thermal_zone0/temp
 """
 
 import getpass
@@ -35,25 +34,25 @@ import telnetlib
 import sys
 
 if ( len(sys.argv) < 4 ):
-	sys.exit("Wrong number of parameters - aborting")
+    sys.exit("Wrong number of parameters - aborting")
 
 guid = "-"
 host = sys.argv[1]
 user = sys.argv[2]
 password = sys.argv[3]
-if ( len(sys.argv) > 3 ):
-	guid = sys.argv[4]
+if ( len(sys.argv) >= 5 ):
+    guid = sys.argv[4]
 
 # Connect to VSCP daemon
 tn = telnetlib.Telnet(host, 9598)
-tn.read_until("+OK",2)
+tn.read_until(b"+OK",2)
 
 # Login
-tn.write("user " + user + "\n")
-tn.read_until("+OK", 2)
+tn.write(b"user " + user.encode('utf8') +  b"\n")
+tn.read_until(b"+OK", 2)
 
-tn.write("pass " + password + "\n")
-tn.read_until("+OK - Success.",2)
+tn.write(b"pass " + password.encode('utf8') + b"\n")
+tn.read_until(b"+OK - Success.",2)
 
 event = "3,"		# Priority=normal
 event += "20,9,"	# Heartbeat
@@ -64,8 +63,9 @@ event += guid  + ","	# add GUID to event
 event += "0,255,255"    # To all zones/subzones
 
 # Send event to server
-tn.write("send " + event + "\n")
-tn.read_until("+OK - Success.",2)
+tn.write(b"send " + event.encode('utf8') + b"\n")
+print("Event=",event)
+tn.read_until(b"+OK - Success.",2)
 
-tn.write("quit\n")
+tn.write(b"quit\n")
 
