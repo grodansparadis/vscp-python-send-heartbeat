@@ -56,9 +56,9 @@ tn.read_until(b"+OK - Success.",2)
 
 event = "3,"		# Priority=normal
 event += "20,9,"	# Heartbeat
+event += "0,"  		# Use obid of interface
 event += ","		# DateTime set to current by VSCP daemon
 event += "0,"		# Use interface timestamp
-event += "0,"  		# Use obid of interface
 event += guid  + ","	# add GUID to event
 event += "0,255,255"    # To all zones/subzones
 
