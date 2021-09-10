@@ -91,7 +91,7 @@ netrc = netrc.netrc()
 config = configparser.ConfigParser()
 
 def usage():
-    print("usage: send_mqtt_heartbeat.py -v -c <pat-to-config-file> -h ")
+    print("usage: send_vscp_heartbeat.py -v -c <pat-to-config-file> -h ")
     print("------------------------------------------------------------")
     print("-h/--help      - This text.")
     print("-v/--verbose   - Print output also to screen.")
