@@ -6,7 +6,7 @@ Two scripts that help to send VSCP heartbeats from remote machines. One version 
 
 You can either download the scripts from this repository (https://github.com/grodansparadis/vscp-python-send-heartbeat) or install them from the package manager. If you download from the repository you need to install the dependencies yourself.
 
-The far easiest eay is to install with **pip**. The only thing needed to install the pyhon package is the following:
+The far easiest eay is to install with **pip** (https://pypi.org/project/vscp-python-send-heartbeat/1.0.0/).  The only thing needed to install the python package is the following:
 
 ```
 pip3 install vscp-python-send-heartbeat
